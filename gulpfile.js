@@ -21,7 +21,7 @@ var minifyHtml = require('gulp-minify-html');
 var imageMin = require('gulp-imagemin');
 var cache = require('gulp-cache');
 gulp.task('sass',function(){
-    gulp.src(['css/src/*.scss'])
+    gulp.src(['src/css/*.scss'])
         .pipe(plumber({
             handleError: function (err) {
                 console.log(err);
@@ -34,19 +34,18 @@ gulp.task('sass',function(){
         .pipe(cssComb())
         .pipe(cmq({log:true}))
         .pipe(csslint())
-       // .pipe(csslint.reporter())
         .pipe(concat('main.css'))
-        .pipe(gulp.dest('css/dist'))
+        .pipe(gulp.dest('./src/css'))
         .pipe(rename({
             suffix: '.min'
         }))
         .pipe(cleanCss())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('css/dist'))
+        .pipe(gulp.dest('build/css'))
         .pipe(browserSync.stream());
 });
 gulp.task('js',function(){
-    gulp.src(['js/src/*.js'])
+    gulp.src(['src/js/index.js'])
         .pipe(plumber({
             handleError: function (err) {
                 console.log(err);
@@ -57,17 +56,17 @@ gulp.task('js',function(){
         .pipe(jshint())
           .pipe(jshint.reporter('default'))
           .pipe(browserify())
-        .pipe(gulp.dest('js/dist'))
+        .pipe(gulp.dest('src/js'))
         .pipe(rename({
             suffix: '.min'
         }))
         .pipe(uglify())
-        .pipe(gulp.dest('js/dist'))
+        .pipe(gulp.dest('build/js'))
         .pipe(browserSync.stream());
 });
 
 gulp.task('ejs',function(){
-    return gulp.src('ejs/*.ejs')
+    return gulp.src('src/*.ejs')
         .pipe(plumber({
             handleError: function (err) {
                 console.log(err);
@@ -81,7 +80,7 @@ gulp.task('ejs',function(){
 });
 
 gulp.task('image',function(){
-    gulp.src(['images/src/*'])
+    gulp.src(['src/images/*'])
         .pipe(plumber({
             handleError: function (err) {
                 console.log(err);
@@ -89,7 +88,7 @@ gulp.task('image',function(){
             }
         }))
         .pipe(cache(imageMin()))
-        .pipe(gulp.dest('images/dist'))
+        .pipe(gulp.dest('build/images'))
         .pipe(browserSync.stream());
 });
 gulp.task('default',function(){
@@ -99,9 +98,9 @@ gulp.task('default',function(){
         }
     });
 
-    gulp.watch('js/src/*.js',['js']);
-    gulp.watch('css/src/*.scss',['sass']);
-    gulp.watch('ejs/*.ejs',['ejs']);
-    gulp.watch('images/src/*',['image']);
+    gulp.watch('src/js/*.js',['js']);
+    gulp.watch('src/css/*.scss',['sass']);
+    gulp.watch('src/*.ejs',['ejs']);
+    gulp.watch('src/images/*',['image']);
     gulp.watch('ejs/partials/*.ejs',['ejs']);
 });
