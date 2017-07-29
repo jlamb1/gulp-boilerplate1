@@ -8,7 +8,7 @@
     "devDependencies": {
         "browser-sync": "*",
         "es6-promise": "*",
-        "gulp": "*",
+        "gulp": "^3.9.1",
         "gulp-autoprefixer": "*",
         "gulp-browserify": "*",
         "gulp-cache": "*",
