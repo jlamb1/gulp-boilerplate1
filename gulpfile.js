@@ -102,5 +102,5 @@ gulp.task('default',function(){
     gulp.watch('src/css/*.scss',['sass']);
     gulp.watch('src/*.ejs',['ejs']);
     gulp.watch('src/images/*',['image']);
-    gulp.watch('ejs/partials/*.ejs',['ejs']);
+    gulp.watch('src/partials/*.ejs',['ejs']);
 });
